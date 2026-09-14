@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --bg: #0B2E23;
-  --surface: #12402F;
-  --surface-hi: #17503A;
+  --bg: #0D0D12;
+  --surface: #1A1A22;
+  --surface-hi: #23232D;
   --gold: #F4B400;
   --red: #E85D5D;
   --green: #34D399;
   --text: #F5F1E6;
-  --text-dim: #9FBBAC;
+  --text-dim: #9B9BA8;
 }
 
 .app {
@@ -16,9 +16,10 @@
   display: flex;
   flex-direction: column;
   background:
-    radial-gradient(circle at 8% 8%, rgba(206,17,38,0.20), transparent 40%),
-    radial-gradient(circle at 95% 15%, rgba(252,209,22,0.14), transparent 38%),
-    radial-gradient(circle at 15% 95%, rgba(0,148,96,0.22), transparent 42%),
+    radial-gradient(circle at 8% 6%, rgba(206,17,38,0.24), transparent 36%),
+    radial-gradient(circle at 92% 12%, rgba(252,209,22,0.20), transparent 36%),
+    radial-gradient(circle at 20% 95%, rgba(0,148,96,0.24), transparent 38%),
+    radial-gradient(circle at 90% 90%, rgba(0,148,96,0.14), transparent 34%),
     var(--bg);
   color: var(--text);
   font-family: 'Manrope', sans-serif;
