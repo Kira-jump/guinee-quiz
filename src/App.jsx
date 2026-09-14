@@ -624,6 +624,10 @@ const richTone = (notes, opts = {}) => {
       <div className="app">
         <h1>🇬🇳 Quiz Guinée</h1>
         <AuthForm />
+        <div className="brand-credit">
+          <img src="/nafotek-logo.jpg" alt="NafoteK" />
+          <span>by NafoteK</span>
+        </div>
       </div>
     )
   }
@@ -668,6 +672,10 @@ const richTone = (notes, opts = {}) => {
             </div>
             <a href="/privacy.html" className="privacy-link">Politique de confidentialité</a>
             <button className="logout-btn full" onClick={handleLogout}>Déconnexion</button>
+            <div className="brand-credit settings-credit">
+              <img src="/nafotek-logo.jpg" alt="NafoteK" />
+              <span>by NafoteK</span>
+            </div>
             <button className="roast-continue" onClick={() => setShowSettings(false)}>Fermer</button>
           </div>
         </div>

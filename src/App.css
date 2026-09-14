@@ -502,3 +502,27 @@
   text-decoration: underline;
   margin-top: 10px;
 }
+
+.brand-credit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  opacity: 0.8;
+}
+.brand-credit img {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+.brand-credit span {
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+.settings-credit {
+  margin-top: 18px;
+  justify-content: flex-start;
+}
