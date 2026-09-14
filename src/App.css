@@ -493,3 +493,12 @@
   cursor: pointer;
 }
 .back-levels:active { transform: scale(0.97); }
+
+.privacy-link {
+  display: block;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  text-decoration: underline;
+  margin-top: 10px;
+}

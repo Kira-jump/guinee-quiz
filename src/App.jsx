@@ -666,6 +666,7 @@ const richTone = (notes, opts = {}) => {
                 <span className="slider"></span>
               </label>
             </div>
+            <a href="/privacy.html" className="privacy-link">Politique de confidentialité</a>
             <button className="logout-btn full" onClick={handleLogout}>Déconnexion</button>
             <button className="roast-continue" onClick={() => setShowSettings(false)}>Fermer</button>
           </div>
