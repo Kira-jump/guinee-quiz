@@ -686,6 +686,10 @@ const richTone = (notes, opts = {}) => {
           <div className="roast-modal">
             <p className="roast-text">{roastMsg}</p>
             <button className="roast-continue" onClick={continueAfterRoast}>Continuer</button>
+            <div className="brand-credit">
+              <img src="/nafotek-logo.jpg" alt="NafoteK" />
+              <span>by NafoteK</span>
+            </div>
           </div>
         </div>
       )}
@@ -746,6 +750,10 @@ const richTone = (notes, opts = {}) => {
             <button className="restart" onClick={watchAd}>📺 Regarder une pub pour continuer</button>
           )}
           <button className="back-levels" onClick={restart}>Reprendre</button>
+          <div className="brand-credit">
+            <img src="/nafotek-logo.jpg" alt="NafoteK" />
+            <span>by NafoteK</span>
+          </div>
         </div>
       )}
 
