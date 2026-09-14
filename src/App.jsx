@@ -226,6 +226,9 @@ function App() {
   const [gameOver, setGameOver] = useState(false)
   const [roastMsg, setRoastMsg] = useState(null)
   const [pendingGameOver, setPendingGameOver] = useState(false)
+  const [showAdOverlay, setShowAdOverlay] = useState(false)
+  const [adWatched, setAdWatched] = useState(false)
+  const [adSeconds, setAdSeconds] = useState(5)
 
   const audioCtxRef = useRef(null)
   const [muted, setMuted] = useState(false)
@@ -543,6 +546,8 @@ const richTone = (notes, opts = {}) => {
     setGameOver(false)
     setRoastMsg(null)
     setPendingGameOver(false)
+    setAdWatched(false)
+    setShowAdOverlay(false)
   }
 
   const goToNextLevel = () => {
@@ -553,6 +558,39 @@ const richTone = (notes, opts = {}) => {
   const restart = () => startLevel(0, true)
 
   const handleLogout = () => signOut(auth)
+
+  const continueWithAd = () => {
+    setShowAdOverlay(false)
+    setAdWatched(true)
+    setLives(1)
+    setGameOver(false)
+    setSelected(null)
+    setTimeLeft(TIME_PER_QUESTION)
+    if (current + 1 >= session.length) {
+      setFinished(true)
+    } else {
+      setCurrent(c => c + 1)
+    }
+  }
+
+  const watchAd = () => setShowAdOverlay(true)
+
+  useEffect(() => {
+    if (!showAdOverlay) return
+    setAdSeconds(5)
+    const id = setInterval(() => {
+      setAdSeconds(s => {
+        if (s <= 1) {
+          clearInterval(id)
+          continueWithAd()
+          return 0
+        }
+        return s - 1
+      })
+    }, 1000)
+    return () => clearInterval(id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showAdOverlay])
 
   const levelNodes = []
   LEVELS.forEach((lvl, i) => {
@@ -643,6 +681,16 @@ const richTone = (notes, opts = {}) => {
         </div>
       )}
 
+      {showAdOverlay && (
+        <div className="roast-overlay">
+          <div className="roast-modal ad-modal">
+            <h2>📺 Publicité</h2>
+            <p className="ad-text">Chargement... merci de patienter</p>
+            <div className="ad-timer">{adSeconds}s</div>
+          </div>
+        </div>
+      )}
+
       {!finished && !gameOver && q && (
         <div className="card">
           <div className="topbar">
@@ -685,7 +733,10 @@ const richTone = (notes, opts = {}) => {
           <p>{LEVELS[levelIndex].name} — Tu as perdu toutes tes vies.</p>
           <p className="finalxp">XP gagné : {xp}</p>
           <p>Bonnes réponses : {score} / {current + 1}</p>
-          <button className="restart" onClick={restart}>Recommencer depuis le début</button>
+          {!adWatched && (
+            <button className="restart" onClick={watchAd}>📺 Regarder une pub pour continuer</button>
+          )}
+          <button className="back-levels" onClick={restart}>Recommencer depuis le début</button>
         </div>
       )}
 

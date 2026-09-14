@@ -470,3 +470,12 @@
   margin-top: 6px;
 }
 .google-btn:active { transform: scale(0.98); }
+
+.ad-modal { text-align: center; }
+.ad-text { color: var(--text-dim); margin: 10px 0 20px; }
+.ad-timer {
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--gold);
+}
