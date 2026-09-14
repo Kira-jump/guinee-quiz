@@ -15,10 +15,26 @@
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  background: var(--bg);
+  background:
+    radial-gradient(circle at 8% 8%, rgba(206,17,38,0.20), transparent 40%),
+    radial-gradient(circle at 95% 15%, rgba(252,209,22,0.14), transparent 38%),
+    radial-gradient(circle at 15% 95%, rgba(0,148,96,0.22), transparent 42%),
+    var(--bg);
   color: var(--text);
   font-family: 'Manrope', sans-serif;
   overflow-x: hidden;
+  position: relative;
+}
+
+.app::before {
+  content: "";
+  position: sticky;
+  top: 0;
+  display: block;
+  height: 5px;
+  width: 100%;
+  background: linear-gradient(90deg, #CE1126 0% 33%, #FCD116 33% 66%, #009460 66% 100%);
+  z-index: 10;
 }
 
 /* ---------- Header ---------- */
@@ -47,8 +63,10 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 2px solid var(--gold);
-  background: var(--surface-hi);
+  border: 2px solid transparent;
+  background:
+    linear-gradient(var(--surface-hi), var(--surface-hi)) padding-box,
+    linear-gradient(135deg, #CE1126, #FCD116, #009460) border-box;
   color: var(--gold);
   font-family: 'Baloo 2', sans-serif;
   font-weight: 700;
@@ -110,7 +128,7 @@
   margin-bottom: 14px;
 }
 
-.lives { font-size: 1.2rem; letter-spacing: 3px; color: var(--red); }
+.lives { font-size: 1.2rem; letter-spacing: 3px; color: #E85D5D; text-shadow: 0 0 12px rgba(232,93,93,0.35); }
 
 .xp {
   font-family: 'Baloo 2', sans-serif;
