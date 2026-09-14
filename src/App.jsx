@@ -736,7 +736,7 @@ const richTone = (notes, opts = {}) => {
           {!adWatched && (
             <button className="restart" onClick={watchAd}>📺 Regarder une pub pour continuer</button>
           )}
-          <button className="back-levels" onClick={restart}>Recommencer depuis le début</button>
+          <button className="back-levels" onClick={restart}>Reprendre</button>
         </div>
       )}
 

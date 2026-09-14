@@ -479,3 +479,17 @@
   font-weight: 800;
   color: var(--gold);
 }
+
+.back-levels {
+  margin-top: 10px;
+  padding: 12px 28px;
+  background: transparent;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  color: var(--text-dim);
+  border-radius: 30px;
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.back-levels:active { transform: scale(0.97); }
