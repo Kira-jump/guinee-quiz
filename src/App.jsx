@@ -200,6 +200,12 @@ const roastTemplates = [
   "{pseudo}, t'as un extrait de naissance biométrique au moins ? 🧐",
 ]
 
+function shuffleOptions(question) {
+  const correctText = question.opts[question.a]
+  const newOpts = shuffle(question.opts)
+  return { ...question, opts: newOpts, a: newOpts.indexOf(correctText) }
+}
+
 function shuffle(arr) {
   const a = [...arr]
   for (let i = a.length - 1; i > 0; i--) {
@@ -215,7 +221,7 @@ const START_LIVES = 3
 
 function App() {
   const [pool, setPool] = useState(() => shuffle(allQuestions))
-  const [session, setSession] = useState(() => shuffle(getLevelQuestions(0, pool)))
+  const [session, setSession] = useState(() => shuffle(getLevelQuestions(0, pool)).map(shuffleOptions))
   const [current, setCurrent] = useState(0)
   const [score, setScore] = useState(0)
   const [xp, setXp] = useState(0)
@@ -535,7 +541,7 @@ const richTone = (notes, opts = {}) => {
       setPool(currentPool)
     }
     setLevelIndex(idx)
-    setSession(shuffle(getLevelQuestions(idx, currentPool)))
+    setSession(shuffle(getLevelQuestions(idx, currentPool)).map(shuffleOptions))
     setCurrent(0)
     setScore(0)
     if (resetXp) setXp(0)
