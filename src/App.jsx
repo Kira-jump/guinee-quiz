@@ -156,6 +156,16 @@ const allQuestions = [
   { q: "Quel organisme sportif régional ouest-africain organise des tournois disputés par la Guinée ?", opts: ["L'UFOA", "La CONCACAF", "L'AFC", "L'OFC"], a: 0 },
   { q: "Quelles croyances anciennes sont encore pratiquées dans certains villages de Guinée forestière ?", opts: ["Les religions traditionnelles africaines", "Le shintoïsme", "Le taoïsme", "Le jaïnisme"], a: 0 },
   { q: "Quel type de riz est cultivé dans les plaines inondées de Basse-Guinée ?", opts: ["Le riz de mangrove", "Le riz basmati importé", "Le riz sauvage canadien", "Le riz noir asiatique"], a: 0 },
+  { q: "Depuis 2023, quel rang mondial occupe la Guinée en production de bauxite ?", opts: ["1er", "3e", "5e", "10e"], a: 0 },
+  { q: "En quelle année a débuté la grande épidémie d'Ebola en Guinée ?", opts: ["2010", "2014", "2018", "2020"], a: 1 },
+  { q: "Qu'est-ce que le fonio, cultivé en Guinée ?", opts: ["Une céréale traditionnelle", "Un tissu", "Un instrument de musique", "Une danse"], a: 0 },
+  { q: "Quel arbre, présent en Guinée, produit le beurre de karité ?", opts: ["Le karité", "Le baobab", "Le manguier", "Le palmier"], a: 0 },
+  { q: "La Guinée appartient à quelle union régionale avec le Liberia, la Sierra Leone et la Côte d'Ivoire ?", opts: ["L'Union du fleuve Mano", "La SADC", "L'UMA", "La CEDEAO"], a: 0 },
+  { q: "Quelle embarcation traditionnelle utilisent les pêcheurs sur la côte guinéenne ?", opts: ["La pirogue", "Le kayak", "Le voilier", "Le sous-marin"], a: 0 },
+  { q: "Quel site guinéen est classé réserve de biosphère et patrimoine mondial de l'UNESCO ?", opts: ["Le Mont Nimba", "La Tour Eiffel", "Le Sahara", "Le Kilimandjaro"], a: 0 },
+  { q: "Quel autre grand fleuve, en plus du Niger et du Sénégal, prend sa source en Guinée ?", opts: ["La Gambie", "L'Amazone", "Le Nil", "Le Congo"], a: 0 },
+  { q: "Près de quelle ville du Fouta Djallon se trouvent les chutes de Kinkon ?", opts: ["Pita", "Kankan", "Kindia", "Boké"], a: 0 },
+  { q: "Comment appelle-t-on le chef traditionnel qui administre un village en Guinée ?", opts: ["Le chef de village", "Le maire", "Le gouverneur", "Le préfet"], a: 0 },
 ]
 
 const roastMessages = [
@@ -170,16 +180,16 @@ const roastMessages = [
 ]
 
 const LEVELS = [
-  { name: "Niveau 1", count: 8 },
-  { name: "Niveau 2", count: 10 },
-  { name: "Niveau 3", count: 11 },
-  { name: "Niveau 4", count: 13 },
-  { name: "Niveau 5", count: 14 },
-  { name: "Niveau 6", count: 16 },
-  { name: "Niveau 7", count: 17 },
-  { name: "Niveau 8", count: 19 },
-  { name: "Niveau 9", count: 20 },
-  { name: "Niveau 10", count: 21 },
+  { name: "Niveau 1", count: 9 },
+  { name: "Niveau 2", count: 11 },
+  { name: "Niveau 3", count: 12 },
+  { name: "Niveau 4", count: 14 },
+  { name: "Niveau 5", count: 15 },
+  { name: "Niveau 6", count: 17 },
+  { name: "Niveau 7", count: 18 },
+  { name: "Niveau 8", count: 20 },
+  { name: "Niveau 9", count: 21 },
+  { name: "Niveau 10", count: 22 },
 ]
 
 function getLevelQuestions(idx, poolArr) {
