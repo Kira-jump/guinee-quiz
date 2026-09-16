@@ -125,7 +125,6 @@ const allQuestions = [
   { q: "Où la lutte traditionnelle est-elle particulièrement pratiquée en Guinée ?", opts: ["En Haute-Guinée lors des récoltes", "Uniquement à Conakry", "Sur les plages", "Nulle part"], a: 0 },
   { q: "Quel est le stade principal de Conakry pour les matchs internationaux ?", opts: ["Stade du 28 Septembre", "Stade de France", "Wembley", "Camp Nou"], a: 0 },
   { q: "Le nom du stade principal de Conakry commémore quel événement ?", opts: ["Le référendum de 1958", "Une finale de CAN", "Un traité de paix", "Une victoire militaire"], a: 0 },
-  { q: "Combien de joueurs composent une équipe de football sur le terrain ?", opts: ["9", "10", "11", "12"], a: 2 },
   { q: "Quelle fédération régit le football national guinéen ?", opts: ["La FÉGUIFOOT", "La FIFA seule", "L'UEFA", "La CAF seule"], a: 0 },
   { q: "Quel est le principal rival régional footballistique de la Guinée ?", opts: ["Le Sénégal", "La Norvège", "Le Japon", "Le Brésil"], a: 0 },
   { q: "Quel type de terrain caractérise souvent les stades en zone rurale guinéenne ?", opts: ["Terrain en terre battue", "Patinoire", "Piste de ski", "Court en gazon synthétique high-tech"], a: 0 },
@@ -180,7 +179,7 @@ const LEVELS = [
   { name: "Niveau 7", count: 17 },
   { name: "Niveau 8", count: 19 },
   { name: "Niveau 9", count: 20 },
-  { name: "Niveau 10", count: 22 },
+  { name: "Niveau 10", count: 21 },
 ]
 
 function getLevelQuestions(idx, poolArr) {
