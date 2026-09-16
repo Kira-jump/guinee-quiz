@@ -590,6 +590,102 @@ const richTone = (notes, opts = {}) => {
     }
   }
 
+  const generateShareImage = ({ title, scoreLine, xpValue }) => {
+    return new Promise((resolve) => {
+      const W = 1080, H = 1350
+      const canvas = document.createElement('canvas')
+      canvas.width = W
+      canvas.height = H
+      const ctx = canvas.getContext('2d')
+
+      ctx.fillStyle = '#0D0D12'
+      ctx.fillRect(0, 0, W, H)
+
+      const halo = (x, y, color) => {
+        const g = ctx.createRadialGradient(x, y, 0, x, y, W * 0.55)
+        g.addColorStop(0, color)
+        g.addColorStop(1, 'rgba(0,0,0,0)')
+        ctx.fillStyle = g
+        ctx.fillRect(0, 0, W, H)
+      }
+      halo(W * 0.1, H * 0.08, 'rgba(206,17,38,0.30)')
+      halo(W * 0.9, H * 0.15, 'rgba(252,209,22,0.26)')
+      halo(W * 0.2, H * 0.95, 'rgba(0,148,96,0.30)')
+
+      const stripeH = 22
+      ctx.fillStyle = '#CE1126'; ctx.fillRect(0, 0, W / 3, stripeH)
+      ctx.fillStyle = '#FCD116'; ctx.fillRect(W / 3, 0, W / 3, stripeH)
+      ctx.fillStyle = '#009460'; ctx.fillRect((2 * W) / 3, 0, W / 3, stripeH)
+
+      ctx.textAlign = 'center'
+      ctx.fillStyle = '#F5F1E6'
+      ctx.font = '700 60px Arial, sans-serif'
+      ctx.fillText('🇬🇳 Quiz Guinée', W / 2, 220)
+
+      ctx.fillStyle = '#F4B400'
+      ctx.font = '800 190px Arial, sans-serif'
+      ctx.fillText(`${xpValue}`, W / 2, 640)
+
+      ctx.fillStyle = '#F5F1E6'
+      ctx.font = '600 48px Arial, sans-serif'
+      ctx.fillText('XP', W / 2, 710)
+
+      ctx.fillStyle = '#9B9BA8'
+      ctx.font = '600 42px Arial, sans-serif'
+      ctx.fillText(scoreLine, W / 2, 800)
+
+      ctx.fillStyle = '#F5F1E6'
+      ctx.font = '700 46px Arial, sans-serif'
+      wrapText(ctx, title, W / 2, 890, W - 140, 56)
+
+      ctx.fillStyle = '#F4B400'
+      ctx.font = '600 34px Arial, sans-serif'
+      ctx.fillText('guinee-quiz.vercel.app', W / 2, H - 150)
+
+      ctx.fillStyle = '#9B9BA8'
+      ctx.font = '400 30px Arial, sans-serif'
+      ctx.fillText('by NafoteK', W / 2, H - 90)
+
+      canvas.toBlob((blob) => resolve(blob), 'image/png')
+    })
+  }
+
+  const wrapText = (ctx, text, x, y, maxWidth, lineHeight) => {
+    const words = text.split(' ')
+    let line = ''
+    let curY = y
+    for (let i = 0; i < words.length; i++) {
+      const testLine = line + words[i] + ' '
+      if (ctx.measureText(testLine).width > maxWidth && line !== '') {
+        ctx.fillText(line, x, curY)
+        line = words[i] + ' '
+        curY += lineHeight
+      } else {
+        line = testLine
+      }
+    }
+    ctx.fillText(line, x, curY)
+  }
+
+  const shareResultImage = async ({ title, scoreLine, xpValue, fallbackText }) => {
+    try {
+      const blob = await generateShareImage({ title, scoreLine, xpValue })
+      const file = new File([blob], 'quiz-guinee.png', { type: 'image/png' })
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], text: fallbackText })
+        return
+      }
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'quiz-guinee.png'
+      a.click()
+      URL.revokeObjectURL(url)
+    } catch (e) {
+      shareText(fallbackText)
+    }
+  }
+
   const handleLogout = () => signOut(auth)
 
   const submitFeedback = async () => {
@@ -850,7 +946,12 @@ const richTone = (notes, opts = {}) => {
           <p>Bonnes réponses : {score} / {current + 1}</p>
           <button
             className="share-btn"
-            onClick={() => shareText(`🇬🇳 J'ai fait ${xp} XP avant de perdre toutes mes vies sur Quiz Guinée ! Arrive à me battre 😏`)}
+            onClick={() => shareResultImage({
+              title: 'Partie terminee',
+              scoreLine: `Bonnes reponses : ${score}/${current + 1}`,
+              xpValue: xp,
+              fallbackText: `🇬🇳 J'ai fait ${xp} XP avant de perdre toutes mes vies sur Quiz Guinée ! Arrive à me battre 😏`,
+            })}
           >📤 Partager</button>
           {!adWatched && (
             <button className="restart" onClick={watchAd}>📺 Regarder une pub pour continuer</button>
@@ -870,7 +971,12 @@ const richTone = (notes, opts = {}) => {
           <p>Ton score : {score} / {session.length}</p>
           <button
             className="share-btn"
-            onClick={() => shareText(`🇬🇳 J'ai obtenu ${xp} XP sur ${LEVELS[levelIndex].name} du Quiz Guinée ! Score : ${score}/${session.length}. Tu fais mieux que moi ?`)}
+            onClick={() => shareResultImage({
+              title: `${LEVELS[levelIndex].name} termine !`,
+              scoreLine: `Score : ${score}/${session.length}`,
+              xpValue: xp,
+              fallbackText: `🇬🇳 J'ai obtenu ${xp} XP sur ${LEVELS[levelIndex].name} du Quiz Guinée ! Tu fais mieux que moi ?`,
+            })}
           >📤 Partager mon score</button>
           {levelIndex + 1 < LEVELS.length ? (
             <button className="restart" onClick={goToNextLevel}>Niveau suivant</button>
