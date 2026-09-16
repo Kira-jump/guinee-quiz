@@ -577,6 +577,18 @@ const richTone = (notes, opts = {}) => {
 
   const restart = () => startLevel(0, true)
 
+  const APP_URL = "https://guinee-quiz.vercel.app"
+
+  const shareText = async (text) => {
+    if (navigator.share) {
+      try {
+        await navigator.share({ text: `${text}\n${APP_URL}` })
+      } catch (e) {}
+    } else {
+      window.open(`https://wa.me/?text=${encodeURIComponent(text + "\n" + APP_URL)}`, "_blank")
+    }
+  }
+
   const handleLogout = () => signOut(auth)
 
   const submitFeedback = async () => {
@@ -770,6 +782,7 @@ const richTone = (notes, opts = {}) => {
         <div className="roast-overlay">
           <div className="roast-modal">
             <p className="roast-text">{roastMsg}</p>
+            <button className="share-btn" onClick={() => shareText(`😂 ${roastMsg}`)}>📤 Partager ce clash</button>
             <button className="roast-continue" onClick={continueAfterRoast}>Continuer</button>
             <div className="brand-credit">
               <img src="/nafotek-logo.jpg" alt="NafoteK" />
@@ -831,6 +844,10 @@ const richTone = (notes, opts = {}) => {
           <p>{LEVELS[levelIndex].name} — Tu as perdu toutes tes vies.</p>
           <p className="finalxp">XP gagné : {xp}</p>
           <p>Bonnes réponses : {score} / {current + 1}</p>
+          <button
+            className="share-btn"
+            onClick={() => shareText(`🇬🇳 J'ai fait ${xp} XP avant de perdre toutes mes vies sur Quiz Guinée ! Arrive à me battre 😏`)}
+          >📤 Partager</button>
           {!adWatched && (
             <button className="restart" onClick={watchAd}>📺 Regarder une pub pour continuer</button>
           )}
@@ -847,6 +864,10 @@ const richTone = (notes, opts = {}) => {
           <h2>{LEVELS[levelIndex].name} termine !</h2>
           <p className="finalxp">XP total : {xp}</p>
           <p>Ton score : {score} / {session.length}</p>
+          <button
+            className="share-btn"
+            onClick={() => shareText(`🇬🇳 J'ai obtenu ${xp} XP sur ${LEVELS[levelIndex].name} du Quiz Guinée ! Score : ${score}/${session.length}. Tu fais mieux que moi ?`)}
+          >📤 Partager mon score</button>
           {levelIndex + 1 < LEVELS.length ? (
             <button className="restart" onClick={goToNextLevel}>Niveau suivant</button>
           ) : (

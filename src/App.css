@@ -561,3 +561,17 @@
   margin-bottom: 14px;
 }
 .feedback-textarea::placeholder { color: var(--text-dim); }
+
+.share-btn {
+  margin-top: 12px;
+  padding: 10px 24px;
+  border-radius: 30px;
+  border: 1.5px solid var(--green);
+  background: none;
+  color: var(--green);
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.share-btn:active { transform: scale(0.97); }
