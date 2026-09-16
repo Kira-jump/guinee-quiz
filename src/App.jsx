@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
-import { doc, onSnapshot, updateDoc } from 'firebase/firestore'
+import { doc, onSnapshot, updateDoc, runTransaction, collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { auth, db } from './firebase'
 import AuthForm from './AuthForm'
 import CompleteProfile from './CompleteProfile'
