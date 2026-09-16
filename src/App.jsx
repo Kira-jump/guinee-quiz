@@ -253,6 +253,7 @@ function App() {
   const [feedbackComment, setFeedbackComment] = useState('')
   const [feedbackSent, setFeedbackSent] = useState(false)
   const [feedbackLoading, setFeedbackLoading] = useState(false)
+  const [feedbackError, setFeedbackError] = useState('')
 
   useEffect(() => {
     const handleVisibility = () => {
@@ -594,6 +595,7 @@ const richTone = (notes, opts = {}) => {
   const submitFeedback = async () => {
     if (feedbackRating === 0 || feedbackLoading) return
     setFeedbackLoading(true)
+    setFeedbackError('')
     try {
       await addDoc(collection(db, 'feedback'), {
         uid: user.uid,
@@ -605,6 +607,7 @@ const richTone = (notes, opts = {}) => {
       setFeedbackSent(true)
     } catch (e) {
       console.error('feedback error', e)
+      setFeedbackError(e.code || e.message || 'Erreur inconnue')
     }
     setFeedbackLoading(false)
   }
@@ -768,6 +771,7 @@ const richTone = (notes, opts = {}) => {
                   onChange={e => setFeedbackComment(e.target.value)}
                   rows={3}
                 />
+                {feedbackError && <p className="auth-error">{feedbackError}</p>}
                 <button className="roast-continue" onClick={submitFeedback} disabled={feedbackRating === 0 || feedbackLoading}>
                   {feedbackLoading ? "Envoi..." : "Envoyer"}
                 </button>
