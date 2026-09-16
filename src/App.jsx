@@ -248,6 +248,11 @@ function App() {
   const audioCtxRef = useRef(null)
   const [muted, setMuted] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
+  const [showFeedback, setShowFeedback] = useState(false)
+  const [feedbackRating, setFeedbackRating] = useState(0)
+  const [feedbackComment, setFeedbackComment] = useState('')
+  const [feedbackSent, setFeedbackSent] = useState(false)
+  const [feedbackLoading, setFeedbackLoading] = useState(false)
 
   useEffect(() => {
     const handleVisibility = () => {
@@ -574,6 +579,31 @@ const richTone = (notes, opts = {}) => {
 
   const handleLogout = () => signOut(auth)
 
+  const submitFeedback = async () => {
+    if (feedbackRating === 0 || feedbackLoading) return
+    setFeedbackLoading(true)
+    try {
+      await addDoc(collection(db, 'feedback'), {
+        uid: user.uid,
+        pseudo: profile?.pseudo || '',
+        rating: feedbackRating,
+        comment: feedbackComment.trim(),
+        createdAt: serverTimestamp(),
+      })
+      setFeedbackSent(true)
+    } catch (e) {
+      console.error('feedback error', e)
+    }
+    setFeedbackLoading(false)
+  }
+
+  const closeFeedback = () => {
+    setShowFeedback(false)
+    setFeedbackRating(0)
+    setFeedbackComment('')
+    setFeedbackSent(false)
+  }
+
   const continueWithAd = () => {
     setShowAdOverlay(false)
     setAdWatched(true)
@@ -686,12 +716,52 @@ const richTone = (notes, opts = {}) => {
               </label>
             </div>
             <a href="/privacy.html" className="privacy-link">Politique de confidentialité</a>
+            <button className="feedback-btn" onClick={() => setShowSettings(false) || setShowFeedback(true)}>⭐ Donner mon avis</button>
             <button className="logout-btn full" onClick={handleLogout}>Déconnexion</button>
             <div className="brand-credit settings-credit">
               <img src="/nafotek-logo.jpg" alt="NafoteK" />
               <span>by NafoteK</span>
             </div>
             <button className="roast-continue" onClick={() => setShowSettings(false)}>Fermer</button>
+          </div>
+        </div>
+      )}
+
+      {showFeedback && (
+        <div className="roast-overlay">
+          <div className="roast-modal feedback-modal">
+            {feedbackSent ? (
+              <>
+                <h2>Merci ! 🙏</h2>
+                <p className="settings-record">Ton avis a bien été envoyé.</p>
+                <button className="roast-continue" onClick={closeFeedback}>Fermer</button>
+              </>
+            ) : (
+              <>
+                <h2>Ton avis compte</h2>
+                <p className="settings-record">Note le quiz et laisse une suggestion si tu veux.</p>
+                <div className="stars">
+                  {[1, 2, 3, 4, 5].map(n => (
+                    <span
+                      key={n}
+                      className={`star ${n <= feedbackRating ? "filled" : ""}`}
+                      onClick={() => setFeedbackRating(n)}
+                    >★</span>
+                  ))}
+                </div>
+                <textarea
+                  className="feedback-textarea"
+                  placeholder="Une suggestion, une idée, un bug ? (optionnel)"
+                  value={feedbackComment}
+                  onChange={e => setFeedbackComment(e.target.value)}
+                  rows={3}
+                />
+                <button className="roast-continue" onClick={submitFeedback} disabled={feedbackRating === 0 || feedbackLoading}>
+                  {feedbackLoading ? "Envoi..." : "Envoyer"}
+                </button>
+                <button className="auth-switch" onClick={closeFeedback}>Annuler</button>
+              </>
+            )}
           </div>
         </div>
       )}
