@@ -686,6 +686,81 @@ const richTone = (notes, opts = {}) => {
     }
   }
 
+  const generateRoastImage = (message) => {
+    return new Promise((resolve) => {
+      const W = 1080, H = 1350
+      const canvas = document.createElement('canvas')
+      canvas.width = W
+      canvas.height = H
+      const ctx = canvas.getContext('2d')
+
+      ctx.fillStyle = '#0D0D12'
+      ctx.fillRect(0, 0, W, H)
+
+      const halo = (x, y, color) => {
+        const g = ctx.createRadialGradient(x, y, 0, x, y, W * 0.55)
+        g.addColorStop(0, color)
+        g.addColorStop(1, 'rgba(0,0,0,0)')
+        ctx.fillStyle = g
+        ctx.fillRect(0, 0, W, H)
+      }
+      halo(W * 0.1, H * 0.08, 'rgba(206,17,38,0.32)')
+      halo(W * 0.9, H * 0.15, 'rgba(252,209,22,0.26)')
+      halo(W * 0.2, H * 0.95, 'rgba(0,148,96,0.28)')
+
+      const stripeH = 22
+      ctx.fillStyle = '#CE1126'; ctx.fillRect(0, 0, W / 3, stripeH)
+      ctx.fillStyle = '#FCD116'; ctx.fillRect(W / 3, 0, W / 3, stripeH)
+      ctx.fillStyle = '#009460'; ctx.fillRect((2 * W) / 3, 0, W / 3, stripeH)
+
+      ctx.textAlign = 'center'
+      ctx.fillStyle = '#F5F1E6'
+      ctx.font = '700 56px Arial, sans-serif'
+      ctx.fillText('🇬🇳 Quiz Guinée', W / 2, 220)
+
+      ctx.font = '800 140px Arial, sans-serif'
+      ctx.fillText('😂', W / 2, 480)
+
+      ctx.fillStyle = '#F5F1E6'
+      ctx.font = '700 58px Arial, sans-serif'
+      wrapText(ctx, message, W / 2, 660, W - 160, 74)
+
+      ctx.fillStyle = '#9B9BA8'
+      ctx.font = '600 40px Arial, sans-serif'
+      ctx.fillText('Arrive a faire mieux ?', W / 2, H - 220)
+
+      ctx.fillStyle = '#F4B400'
+      ctx.font = '600 34px Arial, sans-serif'
+      ctx.fillText('guinee-quiz.vercel.app', W / 2, H - 150)
+
+      ctx.fillStyle = '#9B9BA8'
+      ctx.font = '400 30px Arial, sans-serif'
+      ctx.fillText('by NafoteK', W / 2, H - 90)
+
+      canvas.toBlob((blob) => resolve(blob), 'image/png')
+    })
+  }
+
+  const shareRoastImage = async (message) => {
+    const fallbackText = `😂 ${message}`
+    try {
+      const blob = await generateRoastImage(message)
+      const file = new File([blob], 'quiz-guinee-clash.png', { type: 'image/png' })
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], text: fallbackText })
+        return
+      }
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'quiz-guinee-clash.png'
+      a.click()
+      URL.revokeObjectURL(url)
+    } catch (e) {
+      shareText(fallbackText)
+    }
+  }
+
   const handleLogout = () => signOut(auth)
 
   const submitFeedback = async () => {
@@ -882,7 +957,7 @@ const richTone = (notes, opts = {}) => {
         <div className="roast-overlay">
           <div className="roast-modal">
             <p className="roast-text">{roastMsg}</p>
-            <button className="share-btn" onClick={() => shareText(`😂 ${roastMsg}`)}>📤 Partager ce clash</button>
+            <button className="share-btn" onClick={() => shareRoastImage(roastMsg)}>📤 Partager ce clash</button>
             <button className="roast-continue" onClick={continueAfterRoast}>Continuer</button>
             <div className="brand-credit">
               <img src="/nafotek-logo.jpg" alt="NafoteK" />
