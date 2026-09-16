@@ -575,3 +575,42 @@
   cursor: pointer;
 }
 .share-btn:active { transform: scale(0.97); }
+
+.install-banner {
+  position: sticky;
+  top: 0;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--gold);
+  color: #26200a;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.install-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.install-btn {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 20px;
+  background: #0D0D12;
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.install-dismiss {
+  background: none;
+  border: none;
+  color: #26200a;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0 4px;
+}

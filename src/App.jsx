@@ -255,11 +255,13 @@ function App() {
   const [feedbackLoading, setFeedbackLoading] = useState(false)
   const [feedbackError, setFeedbackError] = useState('')
   const [installPrompt, setInstallPrompt] = useState(null)
+  const [showInstallBanner, setShowInstallBanner] = useState(false)
 
   useEffect(() => {
     const handler = (e) => {
       e.preventDefault()
       setInstallPrompt(e)
+      setShowInstallBanner(true)
     }
     window.addEventListener('beforeinstallprompt', handler)
     return () => window.removeEventListener('beforeinstallprompt', handler)
@@ -776,6 +778,7 @@ const richTone = (notes, opts = {}) => {
     installPrompt.prompt()
     await installPrompt.userChoice
     setInstallPrompt(null)
+    setShowInstallBanner(false)
   }
 
   const handleLogout = () => signOut(auth)
@@ -891,6 +894,15 @@ const richTone = (notes, opts = {}) => {
 
   return (
     <div className="app">
+      {showInstallBanner && (
+        <div className="install-banner">
+          <span>📲 Installe Quiz Guinée pour jouer hors-ligne</span>
+          <div className="install-banner-actions">
+            <button className="install-btn" onClick={handleInstall}>Installer</button>
+            <button className="install-dismiss" onClick={() => setShowInstallBanner(false)}>✕</button>
+          </div>
+        </div>
+      )}
       <div className="app-header">
         <h1>🇬🇳 Quiz Guinée</h1>
         <div className="header-right">
