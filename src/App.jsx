@@ -254,6 +254,16 @@ function App() {
   const [feedbackSent, setFeedbackSent] = useState(false)
   const [feedbackLoading, setFeedbackLoading] = useState(false)
   const [feedbackError, setFeedbackError] = useState('')
+  const [installPrompt, setInstallPrompt] = useState(null)
+
+  useEffect(() => {
+    const handler = (e) => {
+      e.preventDefault()
+      setInstallPrompt(e)
+    }
+    window.addEventListener('beforeinstallprompt', handler)
+    return () => window.removeEventListener('beforeinstallprompt', handler)
+  }, [])
 
   useEffect(() => {
     const handleVisibility = () => {
@@ -761,6 +771,13 @@ const richTone = (notes, opts = {}) => {
     }
   }
 
+  const handleInstall = async () => {
+    if (!installPrompt) return
+    installPrompt.prompt()
+    await installPrompt.userChoice
+    setInstallPrompt(null)
+  }
+
   const handleLogout = () => signOut(auth)
 
   const submitFeedback = async () => {
@@ -902,6 +919,9 @@ const richTone = (notes, opts = {}) => {
               </label>
             </div>
             <a href="/privacy.html" className="privacy-link">Politique de confidentialité</a>
+            {installPrompt && (
+              <button className="feedback-btn" onClick={handleInstall}>📲 Installer l'application</button>
+            )}
             <button className="feedback-btn" onClick={() => setShowSettings(false) || setShowFeedback(true)}>⭐ Donner mon avis</button>
             <button className="logout-btn full" onClick={handleLogout}>Déconnexion</button>
             <div className="brand-credit settings-credit">
