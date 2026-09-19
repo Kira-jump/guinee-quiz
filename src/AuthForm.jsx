@@ -23,10 +23,10 @@ export default function AuthForm() {
   return (
     <div className="card auth-card">
       <h2>T'es un vrai Guinéen ? 🇬🇳</h2>
-      <p className="auth-sub">150 questions, 10 niveaux, et des vies limitées. On va voir ce que tu as dans le ventre 😏</p>
+      <p className="auth-sub">Montre-nous ce que t'as dans le ventre 😏</p>
       {error && <p className="auth-error">{error}</p>}
       <button className="google-btn" onClick={handleGoogleLogin} disabled={loading}>
-        {loading ? 'Connexion...' : 'Se connecter avec Google'}
+        {loading ? 'Connexion...' : 'Connecte-toi avec Google pour jouer'}
       </button>
     </div>
   )
