@@ -894,7 +894,7 @@ const richTone = (notes, opts = {}) => {
             <span key={i} className={`floating-q fq-${i}`}>{q}</span>
           ))}
         </div>
-        <h1>🇬🇳 Quiz Guinée</h1>
+        <h1 className="auth-title">🇬🇳 Quiz Guinée</h1>
         <AuthForm />
         <div className="brand-credit">
           <img src="/nafotek-logo.jpg" alt="NafoteK" />
