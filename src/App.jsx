@@ -207,6 +207,9 @@ const roastTemplates = [
   "Aïe {pseudo}, même ta grand-mère aurait su ça 👵😭",
   "Le Syli National pleure en te regardant, {pseudo} ⚽😢",
   "{pseudo}, t'as un extrait de naissance biométrique au moins ? 🧐",
+  "Ehhh {pseudo}, et dire que tu vas fêter l'indépendance bientôt 😂",
+  "{pseudo}, je te regarde seulement 👀",
+  "Tchiee {pseudo}, façon dont tu vas danser le 2 octobre alors que tu connais même pas ça 😅",
 ]
 
 function shuffleOptions(question) {
