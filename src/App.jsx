@@ -683,11 +683,12 @@ const richTone = (notes, opts = {}) => {
   }
 
   const shareResultImage = async ({ title, scoreLine, xpValue, fallbackText }) => {
+    const fullText = `${fallbackText}\n\n${APP_URL}`
     try {
       const blob = await generateShareImage({ title, scoreLine, xpValue })
       const file = new File([blob], 'quiz-guinee.png', { type: 'image/png' })
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({ files: [file], text: fallbackText })
+        await navigator.share({ files: [file], text: fullText })
         return
       }
       const url = URL.createObjectURL(blob)
@@ -758,11 +759,12 @@ const richTone = (notes, opts = {}) => {
 
   const shareRoastImage = async (message) => {
     const fallbackText = `😂 ${message}`
+    const fullText = `${fallbackText}\n\n${APP_URL}`
     try {
       const blob = await generateRoastImage(message)
       const file = new File([blob], 'quiz-guinee-clash.png', { type: 'image/png' })
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({ files: [file], text: fallbackText })
+        await navigator.share({ files: [file], text: fullText })
         return
       }
       const url = URL.createObjectURL(blob)
