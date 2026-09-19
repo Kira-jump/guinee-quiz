@@ -231,6 +231,17 @@ const SESSION_LENGTH = 15
 const TIME_PER_QUESTION = 15
 const START_LIVES = 3
 
+const FLOATING_QUESTIONS = [
+  "Quelle est la capitale de la Guinée ?",
+  "Qui était le premier président du pays ?",
+  "Quel fleuve prend sa source en Guinée ?",
+  "Que symbolise le rouge du drapeau ?",
+  "Quelle ville est le chef-lieu de la Haute-Guinée ?",
+  "Connais-tu le Syli National ?",
+  "Quel empire a fondé Samory Touré ?",
+  "Quelle est la monnaie officielle ?",
+]
+
 function App() {
   const [pool, setPool] = useState(() => shuffle(allQuestions))
   const [session, setSession] = useState(() => shuffle(getLevelQuestions(0, pool)).map(shuffleOptions))
@@ -878,6 +889,11 @@ const richTone = (notes, opts = {}) => {
   if (!user) {
     return (
       <div className="app">
+        <div className="floating-questions">
+          {FLOATING_QUESTIONS.map((q, i) => (
+            <span key={i} className={`floating-q fq-${i}`}>{q}</span>
+          ))}
+        </div>
         <h1>🇬🇳 Quiz Guinée</h1>
         <AuthForm />
         <div className="brand-credit">
