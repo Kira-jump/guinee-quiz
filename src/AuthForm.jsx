@@ -22,8 +22,8 @@ export default function AuthForm() {
 
   return (
     <div className="card auth-card">
-      <h2>Bienvenue</h2>
-      <p className="auth-sub">Connecte-toi pour jouer et sauvegarder ta progression.</p>
+      <h2>T'es un vrai Guinéen ? 🇬🇳</h2>
+      <p className="auth-sub">150 questions, 10 niveaux, et des vies limitées. On va voir ce que tu as dans le ventre 😏</p>
       {error && <p className="auth-error">{error}</p>}
       <button className="google-btn" onClick={handleGoogleLogin} disabled={loading}>
         {loading ? 'Connexion...' : 'Se connecter avec Google'}
